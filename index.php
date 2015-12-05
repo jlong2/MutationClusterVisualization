@@ -48,10 +48,10 @@
 
 <?php 
     if($_GET['gene']==""){
-        echo "<p>Please enter a gene</p>"
+        echo "<p>Please enter a gene</p>";
     }
     else{
-        echo "<p>You entered ".$_GET['gene']."</p>" 
+        echo "<p>You entered ".$_GET['gene']."</p>" ;
     }
 ?>
 
