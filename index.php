@@ -37,21 +37,17 @@
 <div id="centeredinmain">
 <h2>Title2</h2>
 <p>&nbsp;&nbsp;&nbsp;Text here</p>
-<!--?php
-    echo "<p>This is a php here.</p>";
-?-->
-<!--?php phpinfo(); ?-->
 <form action="?" method="GET">
   Gene: <input type="text" name="gene" />
   <input type="submit"></input>
 </form>
 
 <?php 
-    if($_GET['gene']==""){
-        echo "<p>Please enter a gene</p>";
+    if(isset($_GET['gene'])){
+        echo "<p>You entered ".$_GET['gene']."</p>" ;
     }
     else{
-        echo "<p>You entered ".$_GET['gene']."</p>" ;
+        echo "<p>Please enter a gene</p>";
     }
 ?>
 
