@@ -45,6 +45,18 @@
 <?php 
     if(isset($_GET['gene'])){
         echo "<p>You entered ".$_GET['gene']."</p>" ;
+        /*echo "<script>";
+        $geneentered = $_GET['gene'];
+        $db = new SQLite3("genedatabase.db");
+        $statement = $db->prepare('SELECT countdata FROM genes WHERE genename = :name;');
+        $statement->bindValue(':name', $geneentered);
+        $result = $statement->execute();
+        $genetext = $result->fetchArray()['countdata'];
+        $count_array = array_map('intval',explode(" ",$genetext));
+        $json_encoded_array=json_encode($count_array);
+        echo "    var chartdata=".$json_encoded_array;
+        echo "</script>";
+        echo '<script src="generategraph.js"></script>';*/
     }
     else{
         echo "<p>Please enter a gene</p>";
