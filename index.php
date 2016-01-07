@@ -44,8 +44,8 @@
 
 <?php 
     if(isset($_GET['gene'])){
-        echo "<p>You entered ".$_GET['gene']."</p>" ;
-        echo "<script>";
+        echo "<p>You entered ".$_GET['gene']."</p>"."\n" ;
+        echo "<script>\n";
         $geneentered = $_GET['gene'];
         $db = new SQLite3("genedatabase.db");
         $statement = $db->prepare('SELECT countdata FROM genes WHERE genename = :name;');
@@ -54,8 +54,17 @@
         $genetext = $result->fetchArray()['countdata'];
         $count_array = array_map('intval',explode(" ",$genetext));
         $json_encoded_array=json_encode($count_array);
-        echo "    var chartdata=".$json_encoded_array;
-        echo "</script>";
+        echo "    var chartData=".$json_encoded_array."\n";
+        
+        $statement2 = $db->prepare('SELECT positions FROM hotspots WHERE genename = :name;');
+        $statement2->bindValue(':name', $geneentered);
+        $result2 = $statement2->execute();
+        $postext = $result2->fetchArray()['positions'];
+        $count_array2 = array_map('intval',explode("\t",$postext));
+        $json_encoded_array2=json_encode($count_array2);
+        echo "    var hotspotPositions=".$json_encoded_array2."\n";
+        //echo "    var hotspotPositions=".json_encode($postext)."\n";
+        echo "</script>\n";
         echo '<script src="generategraph.js"></script>';
     }
     else{

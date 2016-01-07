@@ -3,6 +3,7 @@
 	font-family: Arial, Times New Roman, Helvetica, Arial;
 	font-size: 16pt;
 	height: 100%;
+    margin: 0 auto;
 }
 
 h1 {
@@ -124,6 +125,7 @@ img{
 	background-color: #8AADE1;
 	width: 100%;
 	height: 100%;
+    margin: 0 auto;
 }
 
 #center {
@@ -132,8 +134,8 @@ img{
 }
 
 #centeredinmain {
-	width: 70%;
-	margin:auto;
+	width: 1600px;
+	margin: 0 auto;
 	background-color: #CFDEF3;
 	border:3px solid orange;
 }
