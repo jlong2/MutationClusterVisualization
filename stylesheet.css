@@ -147,3 +147,9 @@ img{
 	width:50%;
 	/*background-color: red;*/
 }
+
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
