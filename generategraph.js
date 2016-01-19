@@ -1,8 +1,10 @@
 drawallpos();
+
 function drawallpos() {
 
     var height = 800, width = 1500;
     var svg = d3.select("#centeredinmain").append("svg")
+        .attr("id","svggraph")
         .attr("width", width)
         .attr("height", height)
         .style({"background": "#ffffff","stroke": "#000000"})
@@ -90,10 +92,6 @@ function drawallpos() {
       .attr("transform", "translate("+String(translatedOrigin[0])+","+String((height-translatedOrigin[1])-barGroupHeight)+")")
       .call(yAxis);
             
-    /*for (i in hotspotPositions) {
-        d3.select(#Math.floor(i/binSize).toString())
-            .style("fill","red")
-    }*/
     for (j = 0; j < hotspotPositions.length; j++){
         d3.select("#"+"rect"+Math.floor(hotspotPositions[j]/binSize).toString())
             .style("fill","#ff0000")
@@ -101,4 +99,45 @@ function drawallpos() {
             //.attr("y",0)
     }
     
+    var slider=svg.append("g")
+        .attr("transform","translate("+String(translatedOrigin[0])+",100)")
+        .attr("class","slider");
+    var sliderScale=d3.scale.linear().domain([0, binSize * numberOfBins]).range([0, barWidth * numberOfBins]);
+    var slide1=d3.select(".slider").append("circle").attr("r",5).attr("cx",0).attr("id","lefthandle");
+    function sliderbrushed(){
+        d3.select("#brushendtext").text("brushing")
+        var selinprogress = document.getElementById("selinprogress");
+        if (selinprogress != null && selinprogress.parentNode){
+            selinprogress.parentNode.removeChild(selinprogress);
+        }
+        d3.select("#extenttext").text(String(brush.extent()[0])+" "+String(brush.extent()[1]))
+        var extent = d3.event.target.extent();
+        d3.select(".slider").append("rect").attr("id","selinprogress").attr("height",5).attr("width",sliderScale(extent[1][0])-sliderScale(extent[0][0])).attr("x",sliderScale(extent[0][0])).style("fill","#00ff00");
+        return false;
+    }
+    function sliderended(){
+        d3.select("#brushendtext").text("brush end")
+        var oldsel = document.getElementById("currentsel");
+        if (oldsel != null) {
+            oldsel.parentNode.removeChild(oldsel);
+        }
+        d3.select("#selinprogress").attr("id","currentsel").style("fill","#ff0000");
+        return false;
+    }
+    var brush=d3.svg.brush().x(sliderScale).y(d3.scale.linear().domain([0,5]).range([0,5])).extent([[0,1],[0,5]]).on("brush",sliderbrushed).on("brushend",sliderended);
+    d3.select(".slider").call(d3.svg.axis().scale(sliderScale));
+    d3.select(".slider").call(brush);
+
+}
+
+function removeGraph(){
+    var graph = document.getElementById("svggraph");
+    graph.parentNode.removeChild(graph);
+    return false;
+}
+
+function redrawGraph(){
+    removeGraph();
+    drawAllPosStartEnd(0,chartData.length);
+    return false;
 }

@@ -41,7 +41,11 @@
   Gene: <input type="text" name="gene" />
   <input type="submit"></input>
 </form>
-
+<form>
+  <input type="button" value="Remove Graph" onclick="redrawGraph(); "/>
+ </form>
+ <div id="extenttext"></div>
+ <div id="brushendtext"></div>
 <?php 
     if(isset($_GET['gene'])){
         echo "<p>You entered ".$_GET['gene']."</p>"."\n" ;
@@ -71,7 +75,7 @@
         echo "<p>Please enter a gene</p>";
     }
 ?>
-
+ 
 </div>
 </div>
 

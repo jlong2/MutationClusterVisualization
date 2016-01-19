@@ -153,3 +153,9 @@ img{
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+.brush .extent {
+  stroke: #0f0;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
