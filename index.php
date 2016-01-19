@@ -42,10 +42,13 @@
   <input type="submit"></input>
 </form>
 <form>
-  <input type="button" value="Remove Graph" onclick="redrawGraph(); "/>
+  <input type="button" value="Redraw Graph" onclick="redrawGraph(); "/>
+  <input type="button" value="Draw Original Graph" onclick="drawAllPos(); "/>
  </form>
- <div id="extenttext"></div>
- <div id="brushendtext"></div>
+<div id="extenttext"></div>
+<div id="brushstatustext"></div>
+<p id="startpos"></p>
+<p id="endpos"></p> 
 <?php 
     if(isset($_GET['gene'])){
         echo "<p>You entered ".$_GET['gene']."</p>"."\n" ;
