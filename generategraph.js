@@ -129,6 +129,7 @@ function drawAllPos() {
     d3.select(".slider").call(brush);
     //d3.select("#brushstatustext").on("brush",function(){d3.select("#brushstatustext").text("selecting");return false;}).on("brushend",function(){d3.select("#brushstatustext").text("brush end");return false;});
     
+    return false;
 }
 
 function drawAllPosStartEnd(a,b) {
@@ -228,7 +229,7 @@ function drawAllPosStartEnd(a,b) {
     //Difference
     d3.selectAll(".bar").style("fill",
         function(data,i){
-            if(i + a > 0 && hotspotPositions.contains(i+a)){
+            if(i + a > 0 && hotspotPositions.indexOf(i+a)>=0){
                 return "#ff0000";
             }
             else{
@@ -266,7 +267,8 @@ function drawAllPosStartEnd(a,b) {
     d3.select(".slider").call(d3.svg.axis().scale(sliderScale));
     d3.select(".slider").call(brush);
     //d3.select("#brushstatustext").on("brush",function(){d3.select("#brushstatustext").text("selecting");return false;}).on("brushend",function(){d3.select("#brushstatustext").text("brush end");return false;});
- */   
+ */
+    return false;
 }
 
 function removeGraph(){
@@ -283,5 +285,11 @@ function redrawGraph(){
     d3.select("#endpos").text("Graph redrawn to end="+String(endpos));    
     removeGraph();
     drawAllPosStartEnd(startpos,endpos);
+    return false;
+}
+
+function drawOriginalGraph(){
+    removeGraph();
+    drawAllPos();
     return false;
 }

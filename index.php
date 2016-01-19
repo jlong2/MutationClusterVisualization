@@ -43,7 +43,7 @@
 </form>
 <form>
   <input type="button" value="Redraw Graph" onclick="redrawGraph(); "/>
-  <input type="button" value="Draw Original Graph" onclick="drawAllPos(); "/>
+  <input type="button" value="Draw Original Graph" onclick="drawOriginalGraph(); "/>
  </form>
 <div id="extenttext"></div>
 <div id="brushstatustext"></div>
