@@ -61,7 +61,7 @@ function drawAllPos() {
                 return height - scaledHeight(data);
             })
             .attr("id", function(i){return "rect"+i.toString();})
-            .on("mouseover", function(data,i){var pos=(i+1)*binSize;var postext="Position: "+pos.toString()+" Count: "+data; tooltip.style("visibility", "visible").text(postext);})
+            .on("mouseover", function(data,i){var pos=(i)*binSize;var postext="Position: "+pos.toString()+" Count: "+data; tooltip.style("visibility", "visible").text(postext);})
             .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
             .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
 
@@ -105,6 +105,9 @@ function drawAllPos() {
         .attr("class","slider");
     var sliderScale=d3.scale.linear().domain([0, binSize * numberOfBins]).range([0, barWidth * numberOfBins]);
     var slide1=d3.select(".slider").append("circle").attr("r",5).attr("cx",0).attr("id","lefthandle");
+    var zoombutton = d3.select("body").append("div").attr("id","zoombuttondiv").style({"position": "absolute","z-index": "90","visibility": "hidden"});
+    zoombutton.append("input")
+        .attr({"type": "button", "value": "Zoom In!", "onclick": "redrawGraph()"})
     function sliderbrushed(){
         var selinprogress = document.getElementById("selinprogress");
         if (selinprogress != null && selinprogress.parentNode){
@@ -122,6 +125,7 @@ function drawAllPos() {
             oldsel.parentNode.removeChild(oldsel);
         }
         d3.select("#selinprogress").attr("id","currentsel").style("fill","#ff0000");
+        zoombutton.style({"top": (event.pageY-20)+"px", "left": (event.pageX)+"px", "visibility": "visible"});
         return false;
     }
     var brush=d3.svg.brush().x(sliderScale).y(d3.scale.linear().domain([0,10]).range([0,10])).extent([[0,1],[0,5]]).on("brush",sliderbrushed).on("brushend",sliderended);
@@ -279,8 +283,11 @@ function removeGraph(){
 
 function redrawGraph(){
     var extenttext = d3.select("#extenttext").text().split(" ");
+    //var extent = d3.select("#currentsel");
     startpos = extenttext[2];
     endpos = extenttext[4];
+    //startpos = parseInt(extent.attr("x"));
+    //endpos = startpos+parseInt(extent.attr("width"));
     d3.select("#startpos").text("Graph redrawn from start="+String(startpos));
     d3.select("#endpos").text("Graph redrawn to end="+String(endpos));    
     removeGraph();

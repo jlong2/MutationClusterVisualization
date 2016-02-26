@@ -67,12 +67,18 @@
         $statement2->bindValue(':name', $geneentered);
         $result2 = $statement2->execute();
         $postext = $result2->fetchArray()['positions'];
-        $count_array2 = array_map('intval',explode("\t",$postext));
-        $json_encoded_array2=json_encode($count_array2);
+        if(strlen($postext)==0){
+            $json_encoded_array2=json_encode([]);
+        }
+        else{
+            $count_array2 = array_map('intval',explode("\t",$postext));
+            $json_encoded_array2=json_encode($count_array2);
+        }
         echo "    var hotspotPositions=".$json_encoded_array2."\n";
         //echo "    var hotspotPositions=".json_encode($postext)."\n";
         echo "</script>\n";
         echo '<script src="generategraph.js"></script>';
+        
     }
     else{
         echo "<p>Please enter a gene</p>";
