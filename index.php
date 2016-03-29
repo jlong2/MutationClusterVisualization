@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- Created by John Long 2016 -->
+<!-- Webpage displays the visualization -->
 
 <head>
     <meta charset="utf-8"></meta>

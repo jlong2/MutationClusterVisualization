@@ -1,3 +1,5 @@
+//Created by John Long 2016
+//Draws the graph
 drawAllPos();
 var startpos;
 var endpos;
